@@ -3,14 +3,15 @@ title: "Introduction to the command line"
 subtitle: "Practical session"
 author: "Patricia Carvajal-López"
 date: "28/06/2021"
-note: "This is a suppoting document for the practical segment of the lecture -Introduction to the command line-, from the 2021 summer school in bioinformatics.  https://www.ebi.ac.uk/training/events/summer-school-bioinformatics-2021/
+note: "This is a suppoting document for the practical segment of the lecture -Introduction to the command line-, from the 2021 summer school in bioinformatics.https://www.ebi.ac.uk/training/events/summer-school-bioinformatics-2021/
 
 ---
 
 ___
 # Introduction to the command line
 ___
-This is a suppoting document for the practical segment of the lecture -Introduction to the command line-, from the 2021 summer school in bioinformatics.  https://www.ebi.ac.uk/training/events/summer-school-bioinformatics-2021/
+This is a suppoting document for the practical segment of the lecture -Introduction to the command line-, from the 2021 [summer school in bioinformatics.](https://www.ebi.ac.uk/training/events/summer-school-bioinformatics-2021/)
+
 <p>&nbsp;</p>
 
 __Some notes before we start.__ 
@@ -46,12 +47,17 @@ echo $HOME
 
 
 ## 2. Directories and their content
-When you opened your CLI by default LINUX locates you at your home directory. To find out the location of your current directory type `pwd` and verify this
+When you opened your CLI by default LINUX locates you at your home directory. To find out the location of your current directory type `pwd` and verify this (see Figure 1)
 ```
 pwd
 ```
 
+![Figure1](https://raw.githubusercontent.com/pclo/summer2021/main/images/Figure%201.png)
+Figure 1
+<p>&nbsp;</p>
+
 There is a directory in your home called _practical-cli_. Let's move to that directory with the help of the command `cd`
+
 ```
 cd practical-cli
 ```
@@ -61,15 +67,28 @@ What is the content of this directory? (Hint, find out with the help of the comm
 ```
 ls
 ```
-Can you identify which are files, directories, programs or links?. Even better, can you tell us more about the contents of the directory? Find out by using the `-l` option
+Can you identify which are files, directories, programs or links?. Even better, can you tell us more about the contents of the directory? Find out by using the `-l` option (see Figure 2)
 ```
 ls -l
 ```
-Are you sure that what you are seeing is everything contained within the directory. Find hidden files (well actually files that start with a dot '.') by adding the option `-a` to the `ls` command
+
+![Figure2](https://raw.githubusercontent.com/pclo/summer2021/main/images/Figure%202.png)
+Figure 2
+<p>&nbsp;</p>
+
+
+
+Are you sure that what you are seeing is everything contained within the directory. Find hidden files (well actually files that start with a dot '.') by adding the option `-a` to the `ls` command (See Figure 2)
 ```
 ls -la
 ```
-Now let's move arround directories (make sure that at this momment you are at the _practical-cli_ directory)
+Now let's move arround directories. Make sure that at this momment you are at the _practical-cli_ directory, you can see the directory distribution in Figure 3
+
+![Figure3](https://raw.githubusercontent.com/pclo/summer2021/main/images/Figure%203.png)
+Figure 3
+
+<p>&nbsp;</p>
+
 
 Go to _dir1_ 
 ```
@@ -183,10 +202,15 @@ Visualize all the processes that your computer is working on by using the comman
 ```
 top
 ```
-Identify which is the Process ID (PID) assigned to Firefox, then quit the _top_ visualization by typing
+Identify which is the Process ID (PID) assigned to Firefox, then quit the _top_ visualization by typing (See Figure 4)
 ```
 q
 ```
+![Figure 4](https://raw.githubusercontent.com/pclo/summer2021/main/images/Figure%204.png)
+Figure 4
+
+<p>&nbsp;</p>
+
 Suposing that Firefox's PID is 18033, terminate that process with the help of the command _kill_
 ```
 kill -9 18033
@@ -320,3 +344,74 @@ cut -f3 final.txt | sort > end.txt
 ```
 
 <p>&nbsp;</p>
+
+## A bit of extra work
+
+I’ll leave you with a small exercise to do in your own time, extracting some information from a real-life annotation file (in GFT format) from the Ensembl genome database (_Saccharomyces cerevisiae_ R64-1-1) 
+
+<p>&nbsp;</p>
+
+The [GTF format](http://m.ensembl.org/info/website/upload/gff.html) consists of one line per feature, each containing 9 columns of data, plus optional track definition lines. 
+
+We are going to use the annotation from [_Saccharomyces cerevisiae_](http://www.ensembl.org/Saccharomyces_cerevisiae/Info/Index) and extract some information.
+
++ Download the annotation file from the [Ensemble FTP site (R64-1-14)](http://ftp.ensembl.org/pub/release-104/gtf/saccharomyces_cerevisiae/)
++ Open your CLI and locate yourself in the directory where you placed your GTF file
++ Uncompress the annotation file with the `gunzip` command  
+```
+gunzip Saccharomyces_cerevisiae.R64-1-1.104.gtf.gz
+```
++ Verify that your file is uncompressed (when listing you should see a gtf instead of a gtf.gz file)  
+```
+ls Sa*.*
+```
++ Now let's see the first 20 lines of the file 
+```
+head -20 Saccharomyces_cerevisiae.R64-1-1.104.gtf
+```
++ As you could see the first 6 lines of the file do not contain features. If we wanted to visualize just the portion of the file that contains features, we could use the command `tail` to do this 
+```
+tail -n +6  Saccharomyces_cerevisiae.R64-1-1.104.gtf
+```
++ As you may notice the file may be a bit too long to visualize all at once, maybe you want to take a closer look at the data you are about to visualize. One solution may be sending this information to a text file 
+```
+tail -n +6  Saccharomyces_cerevisiae.R64-1-1.104.gtf>anotacion.txt
+```
++ How many lines of features are there contained in the annotation (hint - use the command `wc`) 
+```
+tail -n +6  Saccharomyces_cerevisiae.R64-1-1.104.gtf|wc -l
+```
++ Take a look at the features contained in these sequences (located in column 3) 
+```
+tail -n +6 Saccharomyces_cerevisiae.R64-1-1.104.gtf. |cut -f3
+```
++ Put them in alphabetical order (remember `sort`)
+```
+tail -n +6  Saccharomyces_cerevisiae.R64-1-1.104.gtf|cut -f3|sort
+```
++ What type of features are there? (hint - you can use the command `uniq` to get a list of unique strings) 
+```
+tail -n +6  Saccharomyces_cerevisiae.R64-1-1.104.gtf|cut -f3|sort|uniq
+```
++ How many CDS does the annotation contain? 
+```
+tail -n +6  Saccharomyces_cerevisiae.R64-1-1.104.gtf|cut -f3|grep -c CDS
+```
++ In what line numbers of the anotacion.txt file can we find “five_prime_utr” features? 
+```
+cat anotacion.txt|cut -f3|grep -n five_prime_utr
+```  
+(when looking for this features in the annotation file do not forget to add +6, as we skipped those first lines because they do not contain features)
+
+
++ Note that if you do not want the “five_prime_utr” string displayed after the line number you can use 
+```
+tail –n +6 Saccharomyces_cerevisiae.R64-1-1.104.gtf|cut -f3|grep -n five_prime_utr|cut -f1 -d:
+```
++ Per our results we can see that we have 4 ”five_prime_utr” features located in lines 7297, 21190, 30433 and 38620.
++ Use the `sed` editor to extract the line number 7297 
+```
+tail -n +6  Saccharomyces_cerevisiae.R64-1-1.104.gtf|sed -n '7297p’
+```
++ And we could go on, and on, and on, and on… 
+
