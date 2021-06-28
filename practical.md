@@ -362,7 +362,7 @@ We are going to use the annotation from [_Saccharomyces cerevisiae_](http://www.
 wget http://ftp.ensembl.org/pub/release-104/gtf/saccharomyces_cerevisiae/Saccharomyces_cerevisiae.R64-1-1.104.gtf.gz
 ```
 
-+ Open your CLI and locate yourself in the directory where you placed your GTF file
++ Make sure you are located in the directory where you placed your GTF file
 + Uncompress the annotation file with the `gunzip` command  
 ```
 gunzip Saccharomyces_cerevisiae.R64-1-1.104.gtf.gz
