@@ -356,6 +356,11 @@ The [GTF format](http://m.ensembl.org/info/website/upload/gff.html) consists of 
 We are going to use the annotation from [_Saccharomyces cerevisiae_](http://www.ensembl.org/Saccharomyces_cerevisiae/Info/Index) and extract some information.
 
 + Download the annotation file (named Saccharomyces_cerevisiae.R64-1-1.104.gtf.gz) from the [Ensemble FTP site (R64-1-14)](http://ftp.ensembl.org/pub/release-104/gtf/saccharomyces_cerevisiae/)
++ Download the annotation file alternative method (do not use if you use the first method). Use the command `wget` to download the file
+```
+wget http://ftp.ensembl.org/pub/release-104/gtf/saccharomyces_cerevisiae/Saccharomyces_cerevisiae.R64-1-1.104.gtf.gz
+```
+
 + Open your CLI and locate yourself in the directory where you placed your GTF file
 + Uncompress the annotation file with the `gunzip` command  
 ```
